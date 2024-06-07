@@ -1,0 +1,370 @@
+{
+    "Console Log": {
+        "prefix": "clg",
+        "body": [
+            "console.log('$1');",
+            "$2"
+        ],
+        "description": "Log output to console"
+    },
+    "Node.js Require": {
+        "prefix": "require",
+        "body": [
+            "const $1 = require('$2');"
+        ],   
+        "description": "Require a module"
+    },
+    "Express Server": {
+        "prefix": "exp-server",
+        "body": [
+            "const express = require('express');",
+            "const app = express();",
+            "const PORT = process.env.PORT || 3000;",
+            "",
+            "app.get('/', (req, res) => {",
+            "  res.send('Hello World!');",
+            "});",
+            "",
+            "app.listen(PORT, () => {",
+            "  console.log(`Server is running on port ${PORT}`);",
+            "});"
+        ],
+        "description": "Creates a basic Express server"
+    },
+    "Import Module": {
+        "prefix": "import",
+        "body": [
+            "import $1 from '$2';"
+        ],
+        "description": "Import a module using ES6 syntax"
+    },
+    "HTTP Server": {
+        "prefix": "http-server",
+        "body": [
+            "const http = require('http');",
+            "const PORT = process.env.PORT || 3000;",
+            "",
+            "const server = http.createServer((req, res) => {",
+            "  res.statusCode = 200;",
+            "  res.setHeader('Content-Type', 'text/plain');",
+            "  res.end('Hello World\\n');",
+            "});",
+            "",
+            "server.listen(PORT, () => {",
+            "  console.log(`Server running at http://localhost:${PORT}/`);",
+            "});"
+        ],
+        "description": "Creates a basic HTTP server"
+    },
+    "Read File": {
+        "prefix": "r-file",
+        "body": [
+            "const fs = require('fs');",
+            "",
+            "fs.readFile('$1', 'utf8', (err, data) => {",
+            "  if (err) {",
+            "    console.error(err);",
+            "    return;",
+            "  }",
+            "  console.log(data);",
+            "});"
+        ],
+        "description": "Read a file using the fs module"
+    },
+    "Write File": {
+        "prefix": "w-file",
+        "body": [
+            "const fs = require('fs');",
+            "",
+            "fs.writeFile('$1', '$2', 'utf8', (err) => {",
+            "  if (err) {",
+            "    console.error(err);",
+            "    return;",
+            "  }",
+            "  console.log('File has been written');",
+            "});"
+        ],
+        "description": "Write to a file using the fs module"
+    },
+    "Express Middleware": {
+        "prefix": "exp-middleware",
+        "body": [
+            "function $1(req, res, next) {",
+            "  // Middleware logic here",
+            "  console.log('Middleware function executed');",
+            "  next();",
+            "}",
+            "",
+            "app.use($1);"
+        ],
+        "description": "Basic Express middleware function"
+    },
+    "Mongoose Connect": {
+        "prefix": "mong-connect",
+        "body": [
+            "const mongoose = require('mongoose');",
+            "const uri = 'mongodb://localhost:27017/$1';",
+            "",
+            "mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })",
+            "  .then(() => console.log('MongoDB connected...'))",
+            "  .catch(err => console.log(err));"
+        ],
+        "description": "Connect to MongoDB using Mongoose"
+    },
+    "Express Route": {
+        "prefix": "exp-route",
+        "body": [
+            "app.get('$1', (req, res) => {",
+            "  res.send('$2');",
+            "});"
+        ],
+        "description": "Creates a basic GET route in Express"
+    },
+    "Mongoose Schema": {
+        "prefix": "mong-schema",
+        "body": [
+            "const mongoose = require('mongoose');",
+            "const Schema = mongoose.Schema;",
+            "",
+            "const $1Schema = new Schema({",
+            "  $2: {",
+            "    type: $3,",
+            "    required: true",
+            "  }",
+            "});",
+            "",
+            "module.exports = mongoose.model('$1', $1Schema);"
+        ],
+        "description": "Creates a Mongoose schema"
+    },
+    "Async Function": {
+        "prefix": "async-func",
+        "body": [
+            "async function $1() {",
+            "  try {",
+            "    const result = await $2;",
+            "    console.log(result);",
+            "  } catch (error) {",
+            "    console.error(error);",
+            "  }",
+            "}"
+        ],
+        "description": "Creates an async function with try/catch block"
+    },
+    "Promise": {
+        "prefix": "promise",
+        "body": [
+            "new Promise((resolve, reject) => {",
+            "  $1",
+            "})",
+            ".then(result => {",
+            "  console.log(result);",
+            "})",
+            ".catch(error => {",
+            "  console.error(error);",
+            "});"
+        ],
+        "description": "Creates a new Promise"
+    },
+    "Custom Error Class": {
+        "prefix": "custom-error",
+        "body": [
+            "class $1Error extends Error {",
+            "  constructor(message) {",
+            "    super(message);",
+            "    this.name = '$1Error';",
+            "    this.statusCode = $2;",
+            "  }",
+            "}",
+            "",
+            "module.exports = $1Error;"
+        ],
+        "description": "Creates a custom error class"
+    },
+    "Winston Logger": {
+        "prefix": "winston-logg",
+        "body": [
+            "const { createLogger, format, transports } = require('winston');",
+            "",
+            "const logger = createLogger({",
+            "  level: 'info',",
+            "  format: format.combine(",
+            "    format.timestamp(),",
+            "    format.json()",
+            "  ),",
+            "  defaultMeta: { service: 'user-service' },",
+            "  transports: [",
+            "    new transports.File({ filename: 'error.log', level: 'error' }),",
+            "    new transports.File({ filename: 'combined.log' })",
+            "  ]",
+            "});",
+            "",
+            "if (process.env.NODE_ENV !== 'production') {",
+            "  logger.add(new transports.Console({",
+            "    format: format.simple()",
+            "  }));",
+            "}",
+            "",
+            "module.exports = logger;"
+        ],
+        "description": "Sets up a Winston logger"
+    },
+    "Express Error Handling Middleware": {
+        "prefix": "experror-handler",
+        "body": [
+            "function errorHandler(err, req, res, next) {",
+            "  console.error(err.stack);",
+            "  res.status(500).send('Something broke!');",
+            "}",
+            "",
+            "app.use(errorHandler);"
+        ],
+        "description": "Express error handling middleware"
+    },
+    "Redis Connection": {
+        "prefix": "redis-connect",
+        "body": [
+            "const redis = require('redis');",
+            "const client = redis.createClient({",
+            "  host: '$1',",
+            "  port: $2",
+            "});",
+            "",
+            "client.on('connect', () => {",
+            "  console.log('Redis client connected');",
+            "});",
+            "",
+            "client.on('error', (err) => {",
+            "  console.log('Something went wrong ' + err);",
+            "});",
+            "",
+            "module.exports = client;"
+        ],
+        "description": "Connects to a Redis instance"
+    },
+    "Sequelize Model": {
+        "prefix": "sequelize-model",
+        "body": [
+            "const { DataTypes } = require('sequelize');",
+            "const sequelize = require('../config/database');",
+            "",
+            "const $1 = sequelize.define('$1', {",
+            "  $2: {",
+            "    type: DataTypes.$3,",
+            "    allowNull: false",
+            "  },",
+            "  $4: {",
+            "    type: DataTypes.$5,",
+            "    allowNull: true",
+            "  }",
+            "}, {",
+            "  timestamps: true,",
+            "  paranoid: true",
+            "});",
+            "",
+            "module.exports = $1;"
+        ],
+        "description": "Defines a Sequelize model"
+    },
+    "GraphQL Schema": {
+        "prefix": "graphql-schema",
+        "body": [
+            "const { gql } = require('apollo-server-express');",
+            "",
+            "const typeDefs = gql`",
+            "  type Query {",
+            "    $1: $2",
+            "  }",
+            "",
+            "  type $3 {",
+            "    $4: $5",
+            "  }",
+            "`;",
+            "",
+            "module.exports = typeDefs;"
+        ],
+        "description": "Defines a GraphQL schema"
+    },
+    "Jest Test Case": {
+        "prefix": "jest-test",
+        "body": [
+            "const $1 = require('$2');",
+            "",
+            "test('$3', () => {",
+            "  const result = $1($4);",
+            "  expect(result).toBe($5);",
+            "});"
+        ],
+        "description": "Creates a Jest test case"
+    },
+    "Environment Variable Config": {
+        "prefix": "env-config",
+        "body": [
+            "require('dotenv').config();",
+            "",
+            "const $1 = process.env.$2 || '$3';"
+        ],
+        "description": "Configures environment variables"
+    },
+    "EJS View Engine": {
+        "prefix": "ejs-setup",
+        "body": [
+            "const express = require('express');",
+            "const app = express();",
+            "",
+            "app.set('view engine', 'ejs');",
+            "app.set('views', path.join(__dirname, 'views'));"
+        ],
+        "description": "Sets up EJS as the view engine"
+    },
+    "Express Static Files": {
+        "prefix": "exp-static",
+        "body": [
+            "const express = require('express');",
+            "const path = require('path');",
+            "const app = express();",
+            "",
+            "app.use(express.static(path.join(__dirname, 'public')));"
+        ],
+        "description": "Sets up middleware to serve static files"
+    },
+    "JWT Authentication Middleware": {
+        "prefix": "jwt-auth-middleware",
+        "body": [
+            "const jwt = require('jsonwebtoken');",
+            "",
+            "function authenticateToken(req, res, next) {",
+            "  const token = req.header('Authorization') && req.header('Authorization').split(' ')[1];",
+            "  if (token == null) return res.sendStatus(401);",
+            "",
+            "  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {",
+            "    if (err) return res.sendStatus(403);",
+            "    req.user = user;",
+            "    next();",
+            "  });",
+            "}",
+            "",
+            "module.exports = authenticateToken;"
+        ],
+        "description": "JWT authentication middleware"
+    },
+    "Async Fetch API": {
+        "prefix": "async-fetch",
+        "body": [
+            "const fetch = require('node-fetch');",
+            "",
+            "async function fetchData(url) {",
+            "  try {",
+            "    const response = await fetch(url);",
+            "    const data = await response.json();",
+            "    console.log(data);",
+            "  } catch (error) {",
+            "    console.error('Error fetching data:', error);",
+            "  }",
+            "}",
+            "",
+            "fetchData('$1');"
+        ],
+        "description": "Async function to fetch data from an API"
+    }
+}

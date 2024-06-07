@@ -1,0 +1,24 @@
+{
+  "name": "nodejs-snippets-by-the-anand",
+  "displayName": "nodeJS Snippets by The Anand",
+  "description": "Node.js Snippets by The Anand: Handy collection of Node.js code snippets for faster and more efficient development.",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/anands2959/nodejs-snippets-by-the-anand.git"
+  },
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Snippets"
+  ],
+  "contributes": {
+    "snippets": [
+      {
+        "language": "javascript",
+        "path": "./snippets/snippets.code-snippets"
+      }
+    ]
+  }
+}
