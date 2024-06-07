@@ -366,5 +366,138 @@
             "fetchData('$1');"
         ],
         "description": "Async function to fetch data from an API"
+    },
+    "Express Error Logger Middleware": {
+        "prefix": "exp-error-logger",
+        "body": [
+            "function errorLogger(err, req, res, next) {",
+            "  console.error(err);",
+            "  next(err);",
+            "}",
+            "",
+            "app.use(errorLogger);"
+        ],
+        "description": "Express middleware to log errors"
+    },
+    "Express Rate Limit Middleware": {
+        "prefix": "exp-rate-limit",
+        "body": [
+            "const rateLimit = require('express-rate-limit');",
+            "",
+            "const limiter = rateLimit({",
+            "  windowMs: 15 * 60 * 1000, // 15 minutes",
+            "  max: 100, // limit each IP to 100 requests per windowMs",
+            "});",
+            "",
+            "app.use(limiter);"
+        ],
+        "description": "Middleware to limit repeated requests"
+    },
+    "Mongoose Virtual Property": {
+        "prefix": "mong-virtual",
+        "body": [
+            "$1Schema.virtual('$2').get(function() {",
+            "  return `${this.$3} ${this.$4}`;",
+            "});"
+        ],
+        "description": "Defines a virtual property in Mongoose schema"
+    },
+    "Sequelize Migration": {
+        "prefix": "sequelize-migration",
+        "body": [
+            "'use strict';",
+            "",
+            "module.exports = {",
+            "  up: async (queryInterface, Sequelize) => {",
+            "    await queryInterface.createTable('$1', {",
+            "      id: {",
+            "        type: Sequelize.INTEGER,",
+            "        primaryKey: true,",
+            "        autoIncrement: true",
+            "      },",
+            "      $2: {",
+            "        type: Sequelize.$3,",
+            "        allowNull: false",
+            "      },",
+            "      createdAt: {",
+            "        type: Sequelize.DATE,",
+            "        allowNull: false",
+            "      },",
+            "      updatedAt: {",
+            "        type: Sequelize.DATE,",
+            "        allowNull: false",
+            "      }",
+            "    });",
+            "  },",
+            "  down: async (queryInterface, Sequelize) => {",
+            "    await queryInterface.dropTable('$1');",
+            "  }",
+            "};"
+        ],
+        "description": "Creates a Sequelize migration file"
+    },
+    "GraphQL Resolver with DataLoader": {
+        "prefix": "graphql-dataloader-resolver",
+        "body": [
+            "const DataLoader = require('dataloader');",
+            "",
+            "const $1Loader = new DataLoader(async keys => {",
+            "  // Batch fetch logic here",
+            "});",
+            "",
+            "const $1Resolver = {",
+            "  Query: {",
+            "    $2: async (_, args, context) => {",
+            "      return $1Loader.load(args.$3);",
+            "    }",
+            "  }",
+            "};",
+            "",
+            "module.exports = $1Resolver;"
+        ],
+        "description": "Defines a GraphQL resolver with DataLoader"
+    },
+    "Express JWT Token Middleware": {
+        "prefix": "exp-jwt-middleware",
+        "body": [
+            "const jwt = require('jsonwebtoken');",
+            "",
+            "function verifyToken(req, res, next) {",
+            "  const token = req.header('Authorization') && req.header('Authorization').split(' ')[1];",
+            "  if (!token) return res.status(401).send('Access Denied');",
+            "",
+            "  try {",
+            "    const verified = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);",
+            "    req.user = verified;",
+            "    next();",
+            "  } catch (error) {",
+            "    res.status(400).send('Invalid Token');",
+            "  }",
+            "}",
+            "",
+            "module.exports = verifyToken;"
+        ],
+        "description": "Express middleware to verify JWT token"
+    },
+    "Express Compression Middleware": {
+        "prefix": "exp-compression",
+        "body": [
+            "const compression = require('compression');",
+            "",
+            "app.use(compression());"
+        ],
+        "description": "Middleware to compress response bodies"
+    },
+    "Express Request Logger Middleware": {
+        "prefix": "exp-request-logger",
+        "body": [
+            "function requestLogger(req, res, next) {",
+            "  console.log(`${req.method} ${req.url}`);",
+            "  next();",
+            "}",
+            "",
+            "app.use(requestLogger);"
+        ],
+        "description": "Express middleware to log incoming requests"
     }
 }
